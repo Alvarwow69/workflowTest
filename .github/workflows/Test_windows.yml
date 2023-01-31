@@ -24,7 +24,7 @@ jobs:
 
       - name: Download libraries
         run: |
-          Invoke-WebRequest -OutFile "lib.exe" -Uri "https://creative-rift.com/download?platform=windows&v=1&p=libraries&f=SWEngine_Installater.exe"
+          Invoke-WebRequest -OutFile "lib.exe" -Uri "https://api.creative-rift.com/download?platform=windows&v=1&p=installer&f=SWEngine_Installater.exe"
           ./lib.exe
           xcopy.exe /E /I .\libraries\1\ .\libraries\
           rmdir /S /Q .\libraries\1\
