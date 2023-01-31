@@ -1,0 +1,32 @@
+name: Download Test
+on:
+  push:
+    branches:
+      - master
+      - develop
+  pull_request:
+    branches:
+      - master
+      - develop
+  workflow_dispatch:
+  release:
+    types: [published]
+
+env:
+  BUILD_TYPE: DEBUG
+
+jobs:
+  Test_windows:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Download libraries
+        run: |
+          Invoke-WebRequest -OutFile "lib.exe" -Uri "https://creative-rift.com/download?platform=windows&v=1&p=libraries&f=SWEngine_Installater.exe"
+          ./lib.exe
+          xcopy.exe /E /I .\libraries\1\ .\libraries\
+          rmdir /S /Q .\libraries\1\
+          ls
+          ls libraries/
